@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-netflix-black text-white font-sans;
+  }
+
+  ::selection {
+    @apply bg-netflix-red/30 text-white;
+  }
+}
+
+@layer components {
+  .card-zoom {
+    @apply transform transition-transform duration-300;
+  }
+  
+  .card-zoom:hover {
+    @apply scale-110 z-50;
+  }
+
+  .netflix-popup {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+  }
+
+  .netflix-popup-overlay {
+    @apply absolute inset-0 bg-black/70;
+  }
+
+  .netflix-popup-content {
+    @apply relative bg-netflix-dark rounded-md shadow-xl max-w-lg w-full mx-auto animate-fadeIn;
+  }
+
+  /* Scroll Animations */
+  .scroll-fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .scroll-fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scroll-fade-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .scroll-fade-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .scroll-fade-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .scroll-fade-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .scroll-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .scroll-scale.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Stagger children animations */
+  .stagger-children > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .stagger-children.visible > *:nth-child(1) { transition-delay: 0.1s; }
+  .stagger-children.visible > *:nth-child(2) { transition-delay: 0.2s; }
+  .stagger-children.visible > *:nth-child(3) { transition-delay: 0.3s; }
+  .stagger-children.visible > *:nth-child(4) { transition-delay: 0.4s; }
+  .stagger-children.visible > *:nth-child(5) { transition-delay: 0.5s; }
+
+  .stagger-children.visible > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Custom Animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes glow {
+    0%, 100% { filter: brightness(100%) blur(0); }
+    50% { filter: brightness(150%) blur(4px); }
+  }
+
+  .animate-glow {
+    animation: glow 4s ease-in-out infinite;
+  }
+
+  /* Glassmorphism */
+  .glass {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20;
+  }
+
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-lg border border-white/10;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-netflix-dark;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-netflix-red/50 rounded-full hover:bg-netflix-red transition-colors;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Video Player Styles */
+input[type="range"] {
+  @apply appearance-none bg-transparent cursor-pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  @apply h-1 bg-white/30 rounded-full;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  @apply appearance-none w-3 h-3 bg-netflix-red rounded-full -mt-1 hover:scale-125 transition-transform;
+}
+
+input[type="range"]:focus {
+  @apply outline-none;
+}
+
+.video-controls-enter {
+  @apply opacity-0 transform translate-y-full;
+}
+
+.video-controls-enter-active {
+  @apply opacity-100 transform translate-y-0 transition-all duration-300;
+}
+
+.video-controls-exit {
+  @apply opacity-100 transform translate-y-0;
+}
+
+.video-controls-exit-active {
+  @apply opacity-0 transform translate-y-full transition-all duration-300;
+}
